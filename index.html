@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>روز شمار تا شروع مدرسه</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Comic Sans MS", cursive;
+      text-align: center;
+      background: url('rain.gif') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .content {
+      background: rgba(0, 0, 60, 0.6); /* سورمه‌ای نیمه‌شفاف */
+      padding: 20px;
+      border-radius: 15px;
+      color: white;
+      max-width: 90%;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin: 10px 0;
+    }
+
+    .timer-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px; /* فاصله بین دایره‌ها */
+        margin: 15px 0;
+        flex-wrap: wrap; /* برای نمایش بهتر در موبایل */
+    }
+
+    .timer-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(0, 0, 80, 0.7); /* رنگ پس‌زمینه برای واحدها */
+        border-radius: 15px; /* گرد کردن گوشه‌ها */
+        padding: 8px 12px;
+        width: 70px; /* عرض هر واحد */
+        height: 90px; /* ارتفاع هر واحد */
+        justify-content: space-around; /* برای توزیع عمودی محتوا */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* سایه برای عمق */
+    }
+
+    .timer-unit .number {
+        font-size: 2em; /* سایز بزرگتر برای عدد */
+        font-weight: bold;
+        color: #66ccff; /* رنگ آبی روشن برای اعداد */
+    }
+
+    .timer-unit .label {
+        font-size: 0.9em; /* سایز معمولی برای برچسب */
+        color: white; /* رنگ سفید برای برچسب */
+        margin-top: 5px;
+    }
+
+    button {
+      margin: 8px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+    
+    .oh-no-lyrics {
+        display: none;
+        font-size: 1.5em;
+        margin-top: 20px;
+        color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>😭 روزشمار تا شروع مدرسه 😭</h1>
+    <div id="countdown" class="timer-container">
+        <div class="timer-unit">
+            <div class="number" id="days-number"></div>
+            <div class="label">روز</div>
+        </div>
+        <div class="timer-unit">
+            <div class="number" id="hours-number"></div>
+            <div class="label">ساعت</div>
+        </div>
+        <div class="timer-unit">
+            <div class="number" id="minutes-number"></div>
+            <div class="label">دقیقه</div>
+        </div>
+        <div class="timer-unit">
+            <div class="number" id="seconds-number"></div>
+            <div class="label">ثانیه</div>
+        </div>
+    </div>
+    
+    <div class="oh-no-lyrics">
+        Oh no, oh no, oh no no no no no no
+    </div>
+
+    <audio id="bg-music" loop>
+      <source src="oh-no.mp3" type="audio/mpeg">
+      مرورگر شما از پخش موسیقی پشتیبانی نمی‌کند.
+    </audio>
+
+    <br>
+    <button onclick="document.getElementById('bg-music').play()">▶️ پخش آهنگ</button>
+    <button onclick="document.getElementById('bg-music').pause()">⏸️ توقف</button>
+  </div>
+
+  <script>
+    // شمارش معکوس
+    function startCountdown(targetDate) {
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+          document.getElementById("countdown").innerHTML = "مدرسه شروع شد 😭";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days-number").innerHTML = days;
+        document.getElementById("hours-number").innerHTML = hours;
+        document.getElementById("minutes-number").innerHTML = minutes;
+        document.getElementById("seconds-number").innerHTML = seconds;
+      }
+
+      setInterval(updateCountdown, 1000);
+    }
+
+    // تاریخ شروع مدرسه (۱ مهر ۱۴۰۴ → 22 سپتامبر 2025)
+    startCountdown(new Date("Sep 22, 2025 06:00:00").getTime());
+
+    // نمایش متن آهنگ
+    document.getElementById('bg-music').addEventListener('play', function() {
+        setTimeout(function() {
+            document.querySelector('.oh-no-lyrics').style.display = 'block';
+        }, 1000); // تأخیر یک ثانیه‌ای برای نمایش متن
+    });
+  </script>
+</body>
+</html>
