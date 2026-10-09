@@ -64,27 +64,6 @@
         margin-top: 5px;
     }
 
-    button {
-      margin: 8px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-      font-size: 1em;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: rgba(255, 255, 255, 0.4);
-    }
-    
-    .oh-no-lyrics {
-        display: none;
-        font-size: 1.5em;
-        margin-top: 20px;
-        color: #fff;
-    }
   </style>
 </head>
 <body>
@@ -108,19 +87,6 @@
             <div class="label">ثانیه</div>
         </div>
     </div>
-    
-    <div class="oh-no-lyrics">
-        Oh no, oh no, oh no no no no no no
-    </div>
-
-    <audio id="bg-music" loop>
-      <source src="oh-no.mp3" type="audio/mpeg">
-      مرورگر شما از پخش موسیقی پشتیبانی نمی‌کند.
-    </audio>
-
-    <br>
-    <button onclick="document.getElementById('bg-music').play()">▶️ پخش آهنگ</button>
-    <button onclick="document.getElementById('bg-music').pause()">⏸️ توقف</button>
   </div>
 
   <script>
@@ -151,13 +117,6 @@
 
     // تاریخ شروع مدرسه (۱ مهر ۱۴۰۴ → 22 سپتامبر 2025)
     startCountdown(new Date("Sep 22, 2025 06:00:00").getTime());
-
-    // نمایش متن آهنگ
-    document.getElementById('bg-music').addEventListener('play', function() {
-        setTimeout(function() {
-            document.querySelector('.oh-no-lyrics').style.display = 'block';
-        }, 5); // تأخیر یک ثانیه‌ای برای نمایش متن
-    });
   </script>
 </body>
 </html>
